@@ -20,7 +20,9 @@ class ChatRoom(roomId: Int, actorSystem: ActorSystem) {
             import GraphDSL.Implicits._
             implicit val executionContext = actorSystem.dispatcher
 
-            var stopper = builder.add(KillSwitches.single[ChatEvent]) // ****1
+            // Creates a new [[Graph]] of [[FlowShape]] that materializes to an external switch that allows external completion
+            // of that unique materialization. Different materializations result in different, independent switches.
+            var stopper = builder.add(KillSwitches.single[ChatEvent])
 
             val fromWebsocket = builder.add(
               Flow[Message]

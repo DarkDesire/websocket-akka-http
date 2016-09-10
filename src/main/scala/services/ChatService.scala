@@ -9,8 +9,6 @@ import akka.stream.scaladsl.Flow
 import chat.ChatRooms
 
 object ChatService {
-  val echo = Flow[Message]
-
   def route(implicit actorSystem: ActorSystem, materializer: Materializer): Route =
     pathPrefix("ws-chat" / IntNumber) { chatId =>
       parameter("name") { userName =>
